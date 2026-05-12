@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.full-view{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    grid-template-areas: 
+    "navbar navbar navbar navbar"
+    "video-container video-container video-container suggestions"
+    "comments comments comments suggestions"
+    ;
+    gap: 10px;
+}
+
+.navbar{
+    grid-area: navbar;
+    background-color: lightgrey;
+    height: 50px;
+}
+
+.video-container{
+    grid-area: video-container;
+    background-color: black;
+    height: 70vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.suggestions{
+    grid-area: suggestions;
+    background-color: lightgreen;
+}
+
+.comments{
+    grid-area: comments;
+    background-color: coral;
+    height: 500px;
+}
+
+#video{
+    position: absolute;
+    max-width: 100%;
+    height: 100%;
+}
+
+.controls{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    transition: opacity 0.3s ease-in-out;
+}
