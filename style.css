@@ -29,6 +29,7 @@
     position: relative;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 .suggestions{
@@ -44,8 +45,9 @@
 
 #video{
     position: absolute;
-    max-width: 100%;
+    width: 100%;
     height: 100%;
+    object-fit: contain;
 }
 
 .controls{
@@ -64,13 +66,13 @@
 
 .controls .control-buttons{
     display: flex;
+    gap: 3px;
 }
 
-.controls .control-buttons .button{
+.controls .control-buttons button{
     background-color: transparent;
     border: none;
     font-size: 20px;
-    gap: 30px;
     cursor: pointer;
     color: white;
 }
@@ -90,12 +92,13 @@
 .controls #separator{
     margin: 0 5px;
     font-size: 16px;
-    font-family: "Open sans";
+    font-family: "Open Sans", sans-serif;
 }
 
 .playback-line{
     position: relative;
-    width: 100%;
+    min-width: 100px;
+    flex: 1;
     height: 8px;
     background-color: lightgray;
     border-radius: 5px;
@@ -115,9 +118,9 @@
 .progress-bar::after{
     content: '';
     position: absolute;
-    right: -10px;
+    right: 0;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(50%, -50%);
     width: 20px;
     height: 20px;
     background-color: red;
@@ -125,30 +128,96 @@
     transition: right 0.1s linear;
 }
 
-.controls .fa-volume-up .controls .fa-solid{
+.controls .fa-volume-up,
+.controls .fa-solid {
     padding: 5px;
     color: white;
 }
 
-.controls input{
+.controls input[type="range"]{
     background-color: transparent;
     border: none;
     cursor: pointer;
     font-size: 20px;
 }
 
+button:focus,
+input:focus{
+    outline: 2px solid red;
+    outline-offset: 2px;
+}
+
 .right{
     display: flex;
     gap: 10px;
     align-items: center;
+}
 
+.volume-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
 }
 
 #volume{
     -webkit-appearance: none;
     appearance: none;
-    width: 100%;
+    flex: 1;
+    max-width: 100px;
     height: 8px;
-    background: linear-gradient();
+    background: linear-gradient(to right, red 0%, red var(--value), lightgray var(--value) , lightgray 100%);
+    border-radius: 5px;
+    outline: none;
+}
 
+#volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#volume::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+#volume::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#volume::-webkit-slider-runnable-track{
+    background: transparent;
+}
+
+#volume::-moz-range-progress{
+    background: red;
+    height: 8px;
+    border-radius: 5px;
+}
+
+#volume::-moz-range-track{
+    background: transparent;
+}
+
+#volume::-ms-track{
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+#mute{
+    cursor: pointer;
 }
