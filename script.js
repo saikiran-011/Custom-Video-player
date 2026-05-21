@@ -48,3 +48,66 @@ document.addEventListener('keydown', function (event){
         togglePlayPause();
     }
 })
+
+
+forward.addEventListener('click', function(){
+    video.currentTime += 10;
+})
+
+backward.addEventListener('click', function(){
+    video.currentTime -= 10;
+})
+
+
+muteButton.addEventListener('click', function(){
+    if(video.muted){
+        video.muted = false;
+
+        muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+        volume.value = video.volume;
+
+    }
+    else{
+        video.muted = true;
+        muteButton.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+        volume.value = 0;
+    }
+})
+
+document.addEventListener('keydown', function(event){
+    if(event.key=="M" || event.key=="m"){
+        event.preventDefault();
+
+        if(video.muted){
+            video.muted = false;
+
+            muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+            volume.value = video.volume;
+
+        }
+        else{
+            video.muted = true;
+            muteButton.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+            volume.value = 0;
+        }
+    }
+})
+
+volume.addEventListener("input",function(){
+    video.volume = volume.value;
+    
+    if(video.volume === 0){
+        muteButton.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+    }
+    else {
+        muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+    }
+})
+
+videoContainer.addEventListener("mouseenter", ()=>{
+    controls.style.opacity = 1;
+})
+
+videoContainer.addEventListener("mouseleave", ()=>{
+    controls.style.opacity = 0;
+})
