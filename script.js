@@ -142,7 +142,7 @@ const timeFormatter = (timeInput) => {
 }
 
 setInterval(() => {
-    currentTimeRef.innerHTML = timeFormatter(video.currentTime);
+    currentTime.innerHTML = timeFormatter(video.currentTime);
     maxDuration.innerHTML = timeFormatter(video.duration);
 
 },1)
