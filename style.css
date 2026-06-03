@@ -221,3 +221,7 @@ input:focus{
 #mute{
     cursor: pointer;
 }
+
+.fullscreen-btn{
+    cursor: pointer;
+}

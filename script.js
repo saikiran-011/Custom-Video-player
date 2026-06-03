@@ -104,10 +104,77 @@ volume.addEventListener("input",function(){
     }
 })
 
-videoContainer.addEventListener("mouseenter", ()=>{
+videoContainer.addEventListener("mouseenter", () => {
     controls.style.opacity = 1;
 })
 
-videoContainer.addEventListener("mouseleave", ()=>{
+videoContainer.addEventListener("mouseleave", () => {
     controls.style.opacity = 0;
+})
+
+video.addEventListener("timeupdate", () => {
+    const currentTime = video.currentTime;
+    const duration = video.duration;
+    const percentage = (currentTime/duration)*100;
+
+    progressBar.style.width = percentage+"%";
+})
+
+
+function showThumbnail(){
+    videoThumbnail.style.display = "block";
+}
+
+video.addEventListener("ended", () => {
+    progressBar.style.width = "0%";
+    showThumbnail();
+
+})
+
+const timeFormatter = (timeInput) => {
+    let minute = Math.floor(timeInput/60);
+    minute = minute < 10 ? "0" + minute : minute;
+
+    let second = Math.floor(timeInput%60);
+    second = second < 10 ? "0" + second : second;
+
+    return `${minute}:${second}`;
+}
+
+setInterval(() => {
+    currentTimeRef.innerHTML = timeFormatter(video.currentTime);
+    maxDuration.innerHTML = timeFormatter(video.duration);
+
+},1)
+
+playBackLine.addEventListener('click', (e) => {
+    let timelineWidth = playBackLine.clientWidth;
+    video.currentTime = (e.offsetX/timelineWidth)*video.duration;
+})
+
+
+function updateVolumeBackground(){
+    const value = (volume.value - volume.min) / (volume.max-volume.min)*100;
+
+    volume.style.setProperty('--value', `${value}%`)
+} 
+
+volume.addEventListener('input', updateVolumeBackground);
+
+updateVolumeBackground();
+
+
+fullScreenButton.addEventListener('click', () => {
+    if (!document.fullscreenElement){
+        videoContainer.requestFullscreen().catch((err) => {
+            alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        })
+
+        fullScreenButton.innerHTML = '<i class="fa-solid fa-expand"></i>'
+    }
+    else{
+        document.exitFullscreen();
+
+        fullScreenButton.innerHTML = '<i class="fa-solid fa-expand"></i>'
+    }
 })
