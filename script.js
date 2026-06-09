@@ -49,15 +49,19 @@ document.addEventListener('keydown', function (event){
     }
 })
 
+forward.addEventListener('click', () => {
+    video.currentTime = Math.min(
+        video.currentTime + 10,
+        video.duration
+    );
+});
 
-forward.addEventListener('click', function(){
-    video.currentTime += 10;
-})
-
-backward.addEventListener('click', function(){
-    video.currentTime -= 10;
-})
-
+backward.addEventListener('click', () => {
+    video.currentTime = Math.max(
+        video.currentTime - 10,
+        0
+    );
+});
 
 muteButton.addEventListener('click', function(){
     if(video.muted){
@@ -113,7 +117,7 @@ videoContainer.addEventListener("mouseleave", () => {
 })
 
 video.addEventListener("timeupdate", () => {
-    const currentTime = video.currentTime;
+    const currentVideoTime = video.currentTime;
     const duration = video.duration;
     const percentage = (currentTime/duration)*100;
 
@@ -165,16 +169,15 @@ updateVolumeBackground();
 
 
 fullScreenButton.addEventListener('click', () => {
-    if (!document.fullscreenElement){
-        videoContainer.requestFullscreen().catch((err) => {
-            alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-        })
+    if (!document.fullscreenElement) {
+        videoContainer.requestFullscreen();
 
-        fullScreenButton.innerHTML = '<i class="fa-solid fa-expand"></i>'
-    }
-    else{
+        fullScreenButton.innerHTML =
+            '<i class="fa-solid fa-compress"></i>';
+    } else {
         document.exitFullscreen();
 
-        fullScreenButton.innerHTML = '<i class="fa-solid fa-expand"></i>'
+        fullScreenButton.innerHTML =
+            '<i class="fa-solid fa-expand"></i>';
     }
 })
